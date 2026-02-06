@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine 💖</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #fce4ec, #e3f2fd, #e8f5e9);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(6px);
+      padding: 40px 60px;
+      border-radius: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #ad1457;
+      font-size: 2.7em;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+      position: relative;
+      height: 120px;
+    }
+
+    button {
+      font-size: 1.3em;
+      padding: 14px 38px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 
+        inset 0 2px 6px rgba(255,255,255,0.6),
+        0 8px 15px rgba(0,0,0,0.2);
+    }
+
+    #yesBtn {
+      background: linear-gradient(145deg, #ff80ab, #ff4081);
+      color: white;
+      margin-right: 25px;
+    }
+
+    #noBtn {
+      background: linear-gradient(145deg, #b3e5fc, #81d4fa);
+      color: #01579b;
+      position: absolute;
+    }
+
+    #message {
+      margin-top: 30px;
+      font-size: 1.6em;
+      color: #6a1b9a;
+    }
+
+    /* YES zoom + blast */
+    .zoom-blast {
+      animation: zoomBlast 0.9s ease-out forwards;
+    }
+
+    @keyframes zoomBlast {
+      0%   { transform: scale(1); opacity: 1; }
+      40%  { transform: scale(10); opacity: 1; }
+      70%  { transform: scale(12); opacity: 0.9; }
+      100% { transform: scale(0); opacity: 0; }
+    }
+
+    /* Flowerpot cracker sparks */
+    .spark {
+      position: fixed;
+      bottom: 50%;
+      font-size: 22px;
+      pointer-events: none;
+      animation: rise 1.8s ease-out forwards;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-350px) scale(1.8);
+        opacity: 0;
+      }
+    }
+
+    /* Falling flowers */
+    .flower {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>💖 Chaitu… will you be my Valentine? 💖</h1>
+
+    <div class="buttons">
+      <button id="yesBtn" onclick="sayYes()">YES 💘</button>
+      <button id="noBtn" onmouseover="moveNo()">NO 🙈</button>
+    </div>
+
+    <div id="message"></div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const message = document.getElementById("message");
+
+    const phrases = [
+      "Aww, don't say no 😢",
+      "Come on, give love a chance 💕",
+      "I promise mutton every weekend 🍖😋",
+      "Pretty please 😘",
+      "Your heart says YES 💓"
+    ];
+
+    function moveNo() {
+      const x = Math.random() * 250;
+      const y = Math.random() * 80;
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+      message.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+    }
+
+    function sayYes() {
+      message.innerHTML = "🎉 YAYYYY!!! You just made my heart burst with love! 💖💥";
+      yesBtn.classList.add("zoom-blast");
+	  noBtn.style.display = "none";
+      startFlowerpot();
+      startFlowerRain();
+    }
+
+    function startFlowerpot() {
+      const sparks = ["✨", "💥", "🎆", "🔥", "💫"];
+      for (let i = 0; i < 35; i++) {
+        const spark = document.createElement("div");
+        spark.className = "spark";
+        spark.textContent = sparks[Math.floor(Math.random() * sparks.length)];
+        spark.style.left = 45 + Math.random() * 10 + "vw";
+        spark.style.animationDelay = Math.random() * 0.6 + "s";
+        spark.style.fontSize = 18 + Math.random() * 20 + "px";
+        document.body.appendChild(spark);
+
+        setTimeout(() => spark.remove(), 2000);
+      }
+    }
+
+    function startFlowerRain() {
+      const flowers = ["🌸", "🌹", "💐", "🌺", "🌷"];
+      for (let i = 0; i < 40; i++) {
+        const flower = document.createElement("div");
+        flower.className = "flower";
+        flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+        flower.style.left = Math.random() * 100 + "vw";
+        flower.style.animationDuration = 3 + Math.random() * 3 + "s";
+        flower.style.fontSize = 20 + Math.random() * 20 + "px";
+        document.body.appendChild(flower);
+
+        setTimeout(() => flower.remove(), 6000);
+      }
+    }
+  </script>
+
+</body>
+</html>
